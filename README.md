@@ -1,5 +1,8 @@
 # docker-ocserv
 
+[![Build workflow](https://github.com/docker-sstc/docker-ocserv/actions/workflows/main.yml/badge.svg)](https://github.com/docker-sstc/docker-ocserv/actions)
+[![Docker pulls](https://img.shields.io/docker/pulls/sstc/ocserv.svg)](https://hub.docker.com/r/sstc/ocserv)
+
 Dockerize OpenConnect VPN Server with 2fa (OTP) enabled
 
 ## Usage
@@ -41,6 +44,7 @@ docker exec -it ocserv /bin/sh
 # Add new user
 new_username="<username>"
 ocpasswd $new_username
+# ocpasswd -g ALL $new_username
 
 # Add otp for the new user
 otp=/etc/ocserv/otp
@@ -48,7 +52,7 @@ otp_pin=0000
 hex_secret=$(xxd -l 20 -p /dev/urandom)
 base32_secret=$(echo $hex_secret | xxd -r -p | base32)
 new_issuer=ocserv
-echo "HOTP/T30 $new_username $otp_pin $hex_secret" > $otp
+echo "HOTP/T30 $new_username $otp_pin $hex_secret" >> $otp
 echo "the otp secret of $new_username added (hex secret = $hex_secret, base32 secret = $base32_secret)"
 uri="otpauth://totp/$new_issuer:$new_username?secret=${base32_secret}&digits=6&issuer=$new_issuer&period=30"
 echo "$uri"

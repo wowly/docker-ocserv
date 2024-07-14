@@ -122,7 +122,7 @@ if [ ! -z "$otp" ]; then
         hex_secret=$(xxd -l 20 -p /dev/urandom)
         base32_secret=$(echo $hex_secret | xxd -r -p | base32)
         new_issuer=ocserv
-        echo "HOTP/T30 $new_username $otp_pin $hex_secret" > $otp
+        echo "HOTP/T30 $new_username $otp_pin $hex_secret" >> $otp
         log "the otp secret of $new_username added (hex secret = $hex_secret, base32 secret = $base32_secret, opt pin = $otp_pin)"
         uri="otpauth://totp/$new_issuer:$new_username?secret=${base32_secret}&digits=6&issuer=$new_issuer&period=30"
         log "$uri"
