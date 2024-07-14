@@ -1,6 +1,8 @@
 FROM docker.io/alpine:3.19
 
-ENV OC_VERSION=1.2.4
+# https://ocserv.openconnect-vpn.net/download
+ENV OC_VERSION=1.3.0
+# https://www.infradead.org/ocserv/download/
 # ENV OC_GPG_KEY=96865171
 # gpg --keyserver pgp.mit.edu --receive-keys 96865171
 # gpg: keybox '/root/.gnupg/pubring.kbx' created
@@ -31,10 +33,11 @@ RUN set -ex; \
 		libseccomp-dev \
 		lz4-dev \
 		libev-dev \
-		oath-toolkit-dev; \
+		oath-toolkit-dev \
+		; \
 	wget https://www.infradead.org/ocserv/download/ocserv-${OC_VERSION}.tar.xz -O ocserv.tar.xz; \
 	wget https://www.infradead.org/ocserv/download/ocserv-${OC_VERSION}.tar.xz.sig -O ocserv.tar.xz.sig; \
-	wget https://ocserv.openconnect-vpn.net/96865171.asc -O key.asc; \
+	wget https://ocserv.openconnect-vpn.net/assets/keys/96865171.asc -O key.asc; \
 	gpg --import key.asc; \
 	# gpg --keyserver pgp.mit.edu --receive-keys ${OC_GPG_KEY}; \
 	gpg --verify ocserv.tar.xz.sig ocserv.tar.xz; \
