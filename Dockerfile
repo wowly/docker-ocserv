@@ -1,4 +1,4 @@
-FROM docker.io/alpine:3.19
+FROM docker.io/alpine:3.21
 
 # https://ocserv.openconnect-vpn.net/download
 ENV OC_VERSION=1.3.0
