@@ -1,0 +1,14 @@
+---
+services:
+  ocserv:
+    build: .
+    restart: always
+    container_name: ocserv
+    privileged: true
+    ports:
+      - 1443:443/udp
+      - 1443:443
+    volumes:
+      - ./data:/etc/ocserv/data
+      - /etc/letsencrypt/live/mydomain.com/fullchain.pem:/etc/ocserv/server-cert.pem
+      - /etc/letsencrypt/live/mydomain.com/privkey.pem:/etc/ocserv/server-key.pem
